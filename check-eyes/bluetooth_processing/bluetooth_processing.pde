@@ -1,5 +1,7 @@
 import processing.serial.*;     // import the Processing serial library
-import processing.net.*;  
+import processing.net.*;
+import http.requests.*;
+
 Server myServer;
 Client myClient; 
 String inString;
@@ -28,34 +30,30 @@ void setup() {
   String portName = Serial.list()[2];
   println("portName:" + portName);
   myPort = new Serial(this, "/dev/tty.AdafruitEZ-Link3f5a-SPP", 9600);
-//  myPort = new Serial(this, "COM9", 9600);
+
 }
 
 void draw() {
   
   background(red, 0, blue);
   
-  if ( mousePressed )
-  {
-    println("MousePressed");
-    myPort.write('A');
-    image(img_on, 285, 166);
-  } else {
-    image(img_off, 287, 166);
-  }
-  
   if ( myPort.available() > 0) {
     String buffer = myPort.readStringUntil('\n');
-//    println("DATA : " + buffer);    
+   
     if (buffer != null) {
      String [] values = split(buffer,'\n');
      int value = parseInt(values[0].trim());
-//     println(value);
-    if(value == 0) {      
-      //blue = blue - speed;
+     println(value);
+     
+     GetRequest get = new GetRequest("http://127.0.0.1:3000/in" + "?a=" + value);
+     get.send();
+     println("Reponse Content: " + get.getContent());
+     println("Reponse Content-Length Header: " + get.getHeader("Content-Length"));
+
+    if(value > 0) {      
       blue = 0;
       red = 255;            
-    } else if (value == 1) {
+    } else if (value == -1) {
       blue = 255;
       red = 0;
     } 

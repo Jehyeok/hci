@@ -1,45 +1,40 @@
-const int ledPin =  13;
-const int buttonPin = 2;
-int buttonFlag = 0;
+#define echoPin 7 // Echo Pin
+#define trigPin 8 // Trigger Pin
+#define LED 9
 
-void setup()
-{ 
-  pinMode(ledPin, OUTPUT);
-  pinMode(buttonPin, INPUT);     
-  Serial.begin(9600);
+int maximumRange = 200; // Maximum range needed
+int minimumRange = 0; // Minimum range needed
+long duration, distance; // Duration used to calculate distance
 
+float outputValue = 0.0;
+
+void setup() {
+ Serial.begin (9600);
+
+ pinMode(trigPin, OUTPUT);
+ pinMode(echoPin, INPUT);
 }
 
-void loop()
-{
-  if (digitalRead(buttonPin) == HIGH)
-  {
-    if (buttonFlag == 0) {
-      buttonFlag = 1; 
-    } 
-    else {
-      buttonFlag = 0;
-    }
-    Serial.println(buttonFlag);
-    delay(20);
-  } else {
-    Serial.println(buttonFlag);
-    delay(20);
-  }
+void loop() {
+  digitalWrite(trigPin, LOW); 
+  delayMicroseconds(2);
   
-   if( Serial.available() > 0 )
-   {
-     char inByte = Serial.read();
-     if( inByte == 'A' )
-     {
-       digitalWrite(ledPin, HIGH);
-       delay(100);
-     }  
-   }
-   else {
-     digitalWrite(ledPin, LOW);
-     delay(100);
-   }
-
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10); 
+  
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+ 
+  //Calculate the distance (in cm) based on the speed of sound.
+  distance = duration/58.2;
+ 
+  if (distance >= maximumRange || distance <= minimumRange){
+    Serial.println("-1");
+  } else {
+    Serial.println(distance);
+    
+    outputValue = map(distance,0,200,0,255);
+    analogWrite(LED,outputValue);
+  }  
+  delay(30);
 }
-

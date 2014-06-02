@@ -7,25 +7,7 @@ class BoardsController < ApplicationController
   # GET /boards.json
   def index
     @boards = Board.all
-
-    hostname = 'localhost'
-
-    port = 5204
-    s = TCPSocket.open(hostname, port)
-    s.puts('test')
-    # while line = s.gets   # Read lines from the socket
-    #   puts line.chop      # And print with platform line terminator
-    # end
-    
-    # response = s.read
-    s.close               # Close the socket when done
-    # server = TCPServer.open(port)  # Socket to listen on port 2000
-    # loop {                         # Servers run forever
-    #   client = server.accept       # Wait for a client to connect
-    #   client.puts(Time.now.ctime)  # Send the time to the client
-    #   client.puts "Closing the connection. Bye!"
-    #   client.close                 # Disconnect from the client
-    # }
+    @@distance = 0
   end
 
   # GET /boards/1
@@ -45,17 +27,9 @@ class BoardsController < ApplicationController
   # POST /boards
   # POST /boards.json
   def create
-    @board = Board.new(board_params)
-
-    respond_to do |format|
-      if @board.save
-        format.html { redirect_to @board, notice: 'Board was successfully created.' }
-        format.json { render :show, status: :created, location: @board }
-      else
-        format.html { render :new }
-        format.json { render json: @board.errors, status: :unprocessable_entity }
-      end
-    end
+    puts "beforebeforebeforebeforebeforebefore"
+    puts "params[:name]: #{params[:name]}"
+    puts "afterafterafterafterafterafterafter"
   end
 
   # PATCH/PUT /boards/1
@@ -80,6 +54,13 @@ class BoardsController < ApplicationController
       format.html { redirect_to boards_url, notice: 'Board was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def in
+    puts "@@distance: #{@@distance}"
+    puts "params[:a]: #{params[:a]}"
+    @@distance = params[:a];
+    render nothing: true
   end
 
   private
