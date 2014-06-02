@@ -1,0 +1,17 @@
+#num {
+	display: table-cell;
+	width: 500px;
+	height: 500px;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 30em;
+}
+
+#numContainer {
+	position: relative;
+	width: 500px;
+	top: 100px;
+	background-color: yellow;
+	border-radius: 50%;
+	margin: 0 auto;
+}

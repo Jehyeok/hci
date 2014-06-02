@@ -27,9 +27,6 @@ class BoardsController < ApplicationController
   # POST /boards
   # POST /boards.json
   def create
-    puts "beforebeforebeforebeforebeforebefore"
-    puts "params[:name]: #{params[:name]}"
-    puts "afterafterafterafterafterafterafter"
   end
 
   # PATCH/PUT /boards/1
@@ -61,6 +58,15 @@ class BoardsController < ApplicationController
     puts "params[:a]: #{params[:a]}"
     @@distance = params[:a];
     render nothing: true
+  end
+
+  def landing
+    
+  end
+
+  def check
+    puts "@@distance: #{@@distance}"
+    @num = Random.new.rand(1..9)
   end
 
   private
