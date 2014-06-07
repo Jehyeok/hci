@@ -7,7 +7,6 @@ class BoardsController < ApplicationController
   # GET /boards.json
   def index
     @boards = Board.all
-    @@distance = 0
   end
 
   # GET /boards/1
@@ -61,12 +60,16 @@ class BoardsController < ApplicationController
   end
 
   def landing
-    
+    @@distance = 0
   end
 
   def check
     puts "@@distance: #{@@distance}"
     @num = Random.new.rand(1..9)
+  end
+
+  def result
+
   end
 
   private
