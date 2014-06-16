@@ -3,13 +3,19 @@ body {
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
-  line-height: 18px;
 }
 
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
+  list-style: none;
+
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-padding-start: 0px;
 }
 
 pre {
@@ -21,11 +27,11 @@ pre {
 a {
   color: #000;
   &:visited {
-    color: #666;
+    
   }
   &:hover {
     color: #fff;
-    background-color: #000;
+    
   }
 }
 

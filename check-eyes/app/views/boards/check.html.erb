@@ -1,2 +1,36 @@
 <%= stylesheet_link_tag    'boards', media: 'all', 'data-turbolinks-track' => true %>
+<meta name="viewport" content="width=device-width, user-scalable=no">
+sight <%= @sight %><br/>
+count <%= @count %>
 <div id="numContainer"><div id="num"><%= @num %></div></div>
+<div id="inputContainer">
+	<div id="inputs">
+		<ul>
+			<li class="inputNum"><input type="hidden" value="1" /><img src="/assets/1.png" /></li>
+			<li class="inputNum"><input type="hidden" value="2" /><img src="/assets/2.png" /></li>
+			<li class="inputNum"><input type="hidden" value="3" /><img src="/assets/3.png" /></li>
+			<li class="inputNum"><input type="hidden" value="4" /><img src="/assets/4.png" /></li>
+			<li class="inputNum"><input type="hidden" value="5" /><img src="/assets/5.png" /></li>
+			<li class="inputNum"><input type="hidden" value="6" /><img src="/assets/6.png" /></li>
+			<li class="inputNum"><input type="hidden" value="7" /><img src="/assets/7.png" /></li>
+			<li class="inputNum"><input type="hidden" value="8" /><img src="/assets/8.png" /></li>
+			<li class="inputNum"><input type="hidden" value="9" /><img src="/assets/9.png" /></li>
+		</ul>
+		<form id="target" action="/check">
+			<input id="formInput" type="hidden" name="input" />
+		</form>
+	</div>
+</div>
+<script>
+	$('#num').css('font-size', <%= @distance %>/(<%= @sight %> * 5));
+
+	$('.inputNum').click(function() {
+		var input = $(this.childNodes[0]).attr('value');
+		// $('#target').innerHTML = input;
+		if ($('#num').text() == input) {
+			$('#formInput').val("1");	
+		}
+
+		$('#target').submit();
+	});
+</script>

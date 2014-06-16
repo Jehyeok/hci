@@ -55,21 +55,45 @@ class BoardsController < ApplicationController
   def in
     puts "@@distance: #{@@distance}"
     puts "params[:a]: #{params[:a]}"
-    @@distance = params[:a];
+    if @@flag == 0
+      @@distance = params[:a]
+    end
     render nothing: true
   end
 
   def landing
     @@distance = 0
+    @@count = 0
+    @@sight = 0.5
+    @@flag = 0
   end
 
   def check
+    @@flag = 1
     puts "@@distance: #{@@distance}"
+    puts "params[:input] #{params[:input]}"
+
+    #@distance = @@distance
+    if params[:input] == "1"
+      @@sight = @@sight + 0.1
+    else
+      @@sight = @@sight - 0.1
+    end
+
+    @distance = 50
+    @sight = @@sight
+    @@count = @@count + 1
+    
+    if (@@count == 11)
+      redirect_to :result
+    end
+
+    @count = @@count
     @num = Random.new.rand(1..9)
   end
 
   def result
-
+    @sight = @@sight
   end
 
   private
